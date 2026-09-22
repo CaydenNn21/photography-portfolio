@@ -161,7 +161,7 @@ section p {
 .gallery {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
+    gap: 24px;
 }
 
 /* =========================
@@ -170,21 +170,16 @@ section p {
 
 .photo {
     width: 100%;
-    height: 380px;
-
+    aspect-ratio: 2 / 3;
     overflow: hidden;
-
     background: #e8e5df;
 }
 
 .photo img {
     display: block;
-
     width: 100%;
     height: 100%;
-
     object-fit: cover;
-
     transition: transform 0.8s ease;
 }
 
@@ -248,14 +243,15 @@ footer {
     }
 
     .gallery {
-        grid-template-columns: 1fr;
+    grid-template-columns: 1fr;
     }
+
 
     .gallery-section {
         margin-bottom: 100px;
     }
 
     .photo {
-        height: 500px;
+    aspect-ratio: 2/3;
     }
 }
