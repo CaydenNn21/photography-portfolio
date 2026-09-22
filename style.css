@@ -53,6 +53,16 @@ nav a {
 
 
 /* =========================
+   GLOBAL SECTIONS
+========================= */
+
+section {
+    padding-left: 6vw;
+    padding-right: 6vw;
+}
+
+
+/* =========================
    HERO
 ========================= */
 
@@ -61,12 +71,12 @@ nav a {
 
     position: relative;
 
-    padding: 120px 6vw 80px;
+    padding-top: 120px;
+    padding-bottom: 80px;
 
     display: flex;
     flex-direction: column;
     justify-content: center;
-
     align-items: flex-start;
 }
 
@@ -144,9 +154,6 @@ nav a {
 
 .section-heading {
     margin-bottom: 160px;
-
-    padding-left: 6vw;
-    padding-right: 6vw;
 }
 
 .section-heading h2 {
@@ -168,9 +175,6 @@ nav a {
 
 .gallery-section {
     margin-bottom: 180px;
-
-    padding-left: 6vw;
-    padding-right: 6vw;
 }
 
 .gallery-title {
@@ -244,6 +248,20 @@ nav a {
 
 
 /* =========================
+   ABOUT
+========================= */
+
+#about {
+    padding-top: 120px;
+    padding-bottom: 30px;
+}
+
+#contact {
+    padding-bottom: 50px;
+}
+
+
+/* =========================
    FOOTER
 ========================= */
 
@@ -259,6 +277,14 @@ footer {
 ========================= */
 
 @media (max-width: 700px) {
+
+    /* Global section spacing */
+
+    section {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
 
     /* Header */
 
@@ -280,7 +306,8 @@ footer {
     .hero {
         min-height: auto;
 
-        padding: 130px 20px 80px;
+        padding-top: 130px;
+        padding-bottom: 80px;
 
         display: flex;
     }
@@ -293,8 +320,6 @@ footer {
         width: 100%;
 
         font-size: 52px;
-
-        gap: 14px;
     }
 
     .hero-small {
@@ -312,29 +337,31 @@ footer {
     }
 
 
-    /* Sections */
+    /* Work */
+
+    .work {
+        padding-top: 100px;
+    }
 
     .section-heading {
-        padding-left: 20px;
-        padding-right: 20px;
-
         margin-bottom: 100px;
+    }
+
+    .section-heading h2 {
+        font-size: 45px;
     }
 
 
     /* Gallery */
 
-    .gallery-section {
-        padding-left: 20px;
-        padding-right: 20px;
-
-        margin-bottom: 100px;
-    }
-
     .gallery {
         grid-template-columns: 1fr;
 
         gap: 20px;
+    }
+
+    .gallery-section {
+        margin-bottom: 100px;
     }
 
     .gallery-title {
@@ -348,6 +375,15 @@ footer {
         aspect-ratio: 2 / 3;
     }
 
+    #about {
+        padding-top: 100px;
+        padding-bottom: 140px;
+    }
+
+    #contact {
+        padding-top: 140px;
+        padding-bottom: 100px;
+    }
 
     /* Footer */
 
