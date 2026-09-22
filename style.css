@@ -174,7 +174,7 @@ section p {
     overflow: hidden;
     background: #e8e5df;
 }
-```css
+
 * {
     margin: 0;
     padding: 0;
@@ -546,7 +546,7 @@ footer {
         padding: 20px;
     }
 }
-```
+
 
 .photo img {
     display: block;
