@@ -1,5 +1,6 @@
 const cloudName = "ij3n4uuf";
 
+
 function loadGallery(tag, galleryId) {
 
     const gallery = document.getElementById(galleryId);
@@ -24,15 +25,29 @@ function loadGallery(tag, galleryId) {
                 img.alt = "XC Photography";
 
                 photo.appendChild(img);
+
                 gallery.appendChild(photo);
 
             });
 
         })
         .catch(error => {
-            console.error(`Failed to load ${tag} gallery:`, error);
+
+            console.error(
+                `Failed to load ${tag} gallery:`,
+                error
+            );
+
         });
 }
 
 
+/* =========================
+   LOAD GALLERIES
+========================= */
+
+loadGallery("travel", "travel-gallery");
+
 loadGallery("street", "street-gallery");
+
+loadGallery("architecture", "architecture-gallery");
