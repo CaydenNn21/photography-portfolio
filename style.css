@@ -214,13 +214,16 @@ footer {
     background: #e8e5df;
 }
 
+.photo {
+    height: 550px;
+    overflow: hidden;
+}
+
 .photo img {
     display: block;
-
     width: 100%;
-
-    height: auto;
-
+    height: 100%;
+    object-fit: cover;
     transition: transform 0.8s ease;
 }
 
