@@ -1,4 +1,180 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f5f3ef;
+    color: #111;
+    line-height: 1.5;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 24px 40px;
+
+    z-index: 100;
+}
+
+header h1 {
+    font-size: 20px;
+    font-weight: 500;
+}
+
+nav {
+    display: flex;
+    gap: 30px;
+}
+
+nav a {
+    color: #111;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+/* =========================
+   HERO
+========================= */
+
+.hero {
+    min-height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    padding: 40px;
+}
+
+.eyebrow {
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    margin-bottom: 30px;
+}
+
+.hero h2 {
+    max-width: 900px;
+
+    font-size: clamp(50px, 8vw, 120px);
+    font-weight: 400;
+    line-height: 0.95;
+
+    letter-spacing: -0.04em;
+}
+
+.scroll {
+    margin-top: 80px;
+    font-size: 13px;
+}
+
+/* =========================
+   GENERAL SECTIONS
+========================= */
+
+section {
+    padding: 160px 40px;
+}
+
+section h2 {
+    font-size: 60px;
+    font-weight: 400;
+    letter-spacing: -0.04em;
+}
+
+section p {
+    margin-top: 20px;
+    max-width: 500px;
+}
+
+/* =========================
+   WORK / GALLERY
+========================= */
+
+.work {
+    padding-top: 180px;
+}
+
+.section-heading {
+    margin-bottom: 160px;
+}
+
+.section-heading h2 {
+    margin-top: 30px;
+
+    font-size: clamp(50px, 7vw, 100px);
+
+    font-weight: 400;
+
+    line-height: 0.95;
+
+    letter-spacing: -0.05em;
+}
+
+.gallery-section {
+    margin-bottom: 180px;
+}
+
+.gallery-title {
+    display: flex;
+    align-items: baseline;
+
+    gap: 20px;
+
+    margin-bottom: 40px;
+}
+
+.gallery-title span {
+    font-size: 11px;
+
+    letter-spacing: 0.15em;
+
+    color: #777;
+}
+
+.gallery-title h3 {
+    font-size: 14px;
+
+    font-weight: 500;
+
+    letter-spacing: 0.15em;
+}
+
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+/* =========================
+   PHOTOS
+========================= */
+
+.photo {
+    width: 100%;
+    aspect-ratio: 2 / 3;
+    overflow: hidden;
+    background: #e8e5df;
+}
+```css
 * {
     margin: 0;
     padding: 0;
@@ -221,17 +397,23 @@ nav a {
 
 .photo {
     width: 100%;
+
     aspect-ratio: 2 / 3;
+
     overflow: hidden;
+
     background: #e8e5df;
-    position: relative;
 }
 
 .photo img {
+    display: block;
+
     width: 100%;
     height: 100%;
-    display: block;
-    object-fit: contain;
+
+    object-fit: cover;
+
+    transition: transform 0.8s ease;
 }
 
 .photo:hover img {
@@ -364,4 +546,85 @@ footer {
         padding: 20px;
     }
 }
+```
 
+.photo img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.8s ease;
+}
+
+.photo:hover img {
+    transform: scale(1.03);
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+footer {
+    padding: 40px;
+    font-size: 12px;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 700px) {
+
+    header {
+        padding: 20px;
+    }
+
+    nav {
+        gap: 15px;
+    }
+
+    nav a {
+        font-size: 12px;
+    }
+
+    .hero {
+        padding: 20px;
+    }
+
+    .hero h2 {
+        font-size: 52px;
+    }
+
+    section {
+        padding: 100px 20px;
+    }
+
+    section h2 {
+        font-size: 45px;
+    }
+
+    footer {
+        padding: 20px;
+    }
+
+    .work {
+        padding-top: 100px;
+    }
+
+    .section-heading {
+        margin-bottom: 100px;
+    }
+
+    .gallery {
+    grid-template-columns: 1fr;
+    }
+
+
+    .gallery-section {
+        margin-bottom: 100px;
+    }
+
+    .photo {
+    aspect-ratio: 2/3;
+    }
+}
