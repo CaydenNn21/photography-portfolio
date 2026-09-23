@@ -235,6 +235,8 @@ section {
     background: #e8e5df;
 
     position: relative;
+
+    cursor: pointer;
 }
 
 .photo img {
@@ -291,6 +293,75 @@ section {
     transform: translateY(0);
 }
 
+/* =========================
+   PHOTO INFORMATION
+========================= */
+
+.photo-info {
+    position: absolute;
+
+    left: 18px;
+    bottom: 14px;
+
+    z-index: 2;
+
+    display: flex;
+    align-items: center;
+
+    opacity: 0;
+
+    transform: translateY(8px);
+
+    transition:
+        opacity 0.4s ease,
+        transform 0.4s ease;
+}
+
+
+.photo-info span {
+    font-size: 9px;
+
+    letter-spacing: 0.2em;
+
+    color: #fff;
+}
+
+
+.photo:hover .photo-info {
+    opacity: 1;
+
+    transform: translateY(0);
+}
+
+.photo::before {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    height: 35%;
+
+    z-index: 1;
+
+    background: linear-gradient(
+        to top,
+        rgba(0, 0, 0, 0.45),
+        transparent
+    );
+
+    opacity: 0;
+
+    transition: opacity 0.4s ease;
+}
+
+
+
+.photo:hover::before {
+    opacity: 1;
+}
 
 /* =========================
    ABOUT
@@ -470,9 +541,44 @@ section {
 ========================= */
 
 footer {
-    padding: 40px 6vw;
+    padding: 45px 6vw 35px;
 
-    font-size: 12px;
+    border-top: 1px solid #d5d2cc;
+
+    font-size: 10px;
+
+    letter-spacing: 0.12em;
+
+    color: #777;
+}
+
+
+.footer-top,
+.footer-bottom {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+}
+
+
+.footer-bottom {
+    margin-top: 70px;
+
+    letter-spacing: 0.03em;
+}
+
+
+.footer-bottom span:last-child {
+    cursor: pointer;
+
+    transition: color 0.25s ease;
+}
+
+
+.footer-bottom span:last-child:hover {
+    color: #111;
 }
 
 
@@ -581,6 +687,14 @@ footer {
         aspect-ratio: 2 / 3;
     }
 
+    .photo-info {
+    display: none;
+    }
+
+    .photo::before {
+        display: none;
+    }
+
     #about {
         padding-top: 120px;
         padding-bottom: 140px;
@@ -641,6 +755,46 @@ footer {
         margin-top: 70px;
     }
 
+    .viewer-top {
+    padding: 16px 20px;
+}
+
+    .viewer-image-container {
+        padding: 10px 20px;
+    }
+
+    .viewer-bottom {
+        padding: 16px 20px;
+        gap: 20px;
+    }
+
+    .viewer-camera {
+        flex-wrap: wrap;
+    }
+
+    #viewer-camera {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 3px;
+    }
+
+    #viewer-settings {
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    #viewer-camera-model {
+        font-size: 11px;
+    }
+
+    #viewer-lens {
+        font-size: 10px;
+    }
+
+    #viewer-settings {
+        font-size: 9px;
+    }
+
     /* Footer */
 
     footer {
@@ -686,7 +840,7 @@ footer {
     justify-content: space-between;
     align-items: center;
 
-    padding: 25px 35px;
+    padding: 18px 35px;
 }
 
 #viewer-counter {
@@ -717,24 +871,24 @@ footer {
 
 /* IMAGE */
 
+
 .viewer-image-container {
     flex: 1;
+
+    min-height: 0;
 
     display: flex;
     align-items: center;
     justify-content: center;
 
-    padding: 20px 6vw;
+    padding: 10px 6vw;
 }
 
-
 #viewer-image {
-    max-width: 90%;
-    max-height: 78vh;
-
+    max-width: 88%;
+    max-height: 100%;
     width: auto;
     height: auto;
-
     object-fit: contain;
 }
 
@@ -748,7 +902,7 @@ footer {
     justify-content: space-between;
     align-items: center;
 
-    padding: 25px 35px;
+    padding: 18px 35px;
 }
 
 
@@ -790,4 +944,41 @@ footer {
 .viewer-controls button:hover {
     background: #fff;
     color: #111;
+}
+
+.viewer-metadata {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+#viewer-category {
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    color: #aaa;
+}
+
+#viewer-camera {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+#viewer-camera-model {
+    font-size: 12px;
+    color: #fff;
+}
+
+#viewer-lens {
+    font-size: 11px;
+    color: #888;
+}
+
+#viewer-settings {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    color: #888;
 }

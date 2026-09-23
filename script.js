@@ -1,8 +1,10 @@
 const cloudName = "ij3n4uuf";
 
+const metadataWorker =
+    "https://xc-photo-metadata.keansengphang01.workers.dev";
+
 let allPhotos = [];
 let currentPhotoIndex = 0;
-
 
 /* =========================
    LOAD GALLERY
@@ -30,17 +32,28 @@ function loadGallery(tag, galleryId) {
 
                 img.alt = "XC Photography";
 
-                photo.appendChild(img);
-                gallery.appendChild(photo);
+                const photoInfo = document.createElement("div");
+                photoInfo.className = "photo-info";
 
+                const photoCategory = document.createElement("span");
+                photoCategory.textContent = tag.toUpperCase();
+
+                photoInfo.appendChild(photoCategory);
+
+                photo.appendChild(img);
+                photo.appendChild(photoInfo);
+                gallery.appendChild(photo);
 
                 /* Store photo information */
 
                 const photoIndex = allPhotos.length;
 
-                allPhotos.push({
+               allPhotos.push({
                     src: img.src,
-                    tag: tag
+                    tag: tag,
+                    publicId: image.public_id,
+                    format: image.format,
+                    metadata: null
                 });
 
 
@@ -87,21 +100,204 @@ function closeViewer() {
 }
 
 
-function updateViewer() {
+async function updateViewer() {
 
-    const image = document.getElementById("viewer-image");
-    const counter = document.getElementById("viewer-counter");
-    const category = document.getElementById("viewer-category");
+    const image =
+        document.getElementById("viewer-image");
 
-    const photo = allPhotos[currentPhotoIndex];
+    const counter =
+        document.getElementById("viewer-counter");
+
+    const category =
+        document.getElementById("viewer-category");
+
+    const cameraModel =
+        document.getElementById("viewer-camera-model");
+
+    const lens =
+        document.getElementById("viewer-lens");
+
+    const focalLength =
+        document.getElementById("viewer-focal-length");
+
+    const aperture =
+        document.getElementById("viewer-aperture");
+
+    const shutter =
+        document.getElementById("viewer-shutter");
+
+    const iso =
+        document.getElementById("viewer-iso");
+
+    const photo =
+        allPhotos[currentPhotoIndex];
+
+    /*
+     * Display image
+     */
 
     image.src = photo.src;
+
+    /*
+     * Display counter
+     */
 
     counter.textContent =
         `${String(currentPhotoIndex + 1).padStart(2, "0")} / ${String(allPhotos.length).padStart(2, "0")}`;
 
+    /*
+     * Display category
+     */
+
     category.textContent =
         photo.tag.toUpperCase();
+
+    /*
+     * Clear old metadata
+     */
+
+    cameraModel.textContent = "";
+    lens.textContent = "";
+
+    focalLength.textContent = "";
+    aperture.textContent = "";
+    shutter.textContent = "";
+    iso.textContent = "";
+
+    /*
+     * If metadata was already loaded,
+     * use the cached version.
+     */
+
+    if (photo.metadata) {
+        displayMetadata(photo.metadata);
+        return;
+    }
+
+    /*
+     * Get metadata from Cloudflare Worker
+     */
+
+    try {
+
+        const response =
+            await fetch(
+                `${metadataWorker}/?public_id=${encodeURIComponent(photo.publicId)}`
+            );
+
+        if (!response.ok) {
+            throw new Error(
+                `Metadata request failed: ${response.status}`
+            );
+        }
+
+        const metadata =
+            await response.json();
+
+        /*
+         * Save metadata so we don't
+         * request it again.
+         */
+
+        photo.metadata = metadata;
+
+        /*
+         * Display metadata
+         */
+
+        displayMetadata(metadata);
+
+    } catch (error) {
+
+        console.error(
+            "Failed to load photo metadata:",
+            error
+        );
+
+    }
+}
+
+function displayMetadata(metadata) {
+
+    const cameraModel =
+        document.getElementById("viewer-camera-model");
+
+    const lens =
+        document.getElementById("viewer-lens");
+
+    const focalLength =
+        document.getElementById("viewer-focal-length");
+
+    const aperture =
+        document.getElementById("viewer-aperture");
+
+    const shutter =
+        document.getElementById("viewer-shutter");
+
+    const iso =
+        document.getElementById("viewer-iso");
+
+
+    /*
+     * Camera
+     */
+
+    if (metadata.make && metadata.model) {
+
+        cameraModel.textContent =
+            `${metadata.make} ${metadata.model}`;
+
+    } else if (metadata.model) {
+
+        cameraModel.textContent =
+            metadata.model;
+
+    }
+
+
+    /*
+     * Lens
+     */
+
+    if (metadata.lens) {
+
+        lens.textContent =
+            metadata.lens;
+
+    }
+
+
+    /*
+     * Camera settings
+     */
+
+    if (metadata.focalLength) {
+
+        focalLength.textContent =
+            metadata.focalLength;
+
+    }
+
+    if (metadata.aperture) {
+
+        aperture.textContent =
+            `f/${metadata.aperture}`;
+
+    }
+
+    if (metadata.shutterSpeed) {
+
+        shutter.textContent =
+            metadata.shutterSpeed;
+
+    }
+
+    if (metadata.iso) {
+
+        iso.textContent =
+            `ISO ${metadata.iso}`;
+
+    }
 }
 
 
@@ -173,7 +369,18 @@ document
 document
     .getElementById("viewer-prev")
     .addEventListener("click", previousPhoto);
-    
+
+
+document
+    .querySelector(".footer-bottom span:last-child")
+    .addEventListener("click", () => {
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+
+    });
 /* =========================
    LOAD PHOTOS
 ========================= */
