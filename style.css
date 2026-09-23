@@ -133,10 +133,10 @@ section {
         linear-gradient(
             to bottom,
             transparent 0%,
-            rgba(0, 0, 0, 0.05) 12%,
-            rgba(0, 0, 0, 0.35) 30%,
-            rgba(0, 0, 0, 0.75) 50%,
-            black 72%
+            rgba(0, 0, 0, 0.05) 4%,
+            rgba(0, 0, 0, 0.35) 17%,
+            rgba(0, 0, 0, 0.75) 44%,
+            black 65%
         );
 }
 
@@ -203,12 +203,12 @@ section {
     font-size: 1em;
     font-weight: 400;
     letter-spacing: -0.065em;
-    color: #ffffff;
+    color: #d6d6d6;
 }
 
 .hero-large strong {
     font-weight: 600;
-    color: #ffffff;
+    color: #d6d6d6;
 }
 
 
