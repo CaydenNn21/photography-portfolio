@@ -1022,23 +1022,69 @@ footer {
 }
 
 .viewer-controls button {
+    position: relative;
+
     width: 42px;
     height: 42px;
     min-width: 42px;
     min-height: 42px;
 
     padding: 0;
+
     border: 1px solid #555;
     background: transparent;
     color: #fff;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    cursor: pointer;
 
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 18px;
-    line-height: 1;
+    transition:
+        background 0.25s ease,
+        color 0.25s ease;
+}
+
+/* Arrow line */
+.viewer-controls button::before {
+    content: "";
+
+    position: absolute;
+
+    top: 50%;
+    left: 50%;
+
+    width: 14px;
+    height: 1px;
+
+    background: currentColor;
+
+    transform: translate(-50%, -50%);
+}
+
+/* Arrow head */
+#viewer-prev::after,
+#viewer-next::after {
+    content: "";
+
+    position: absolute;
+
+    top: 50%;
+
+    width: 7px;
+    height: 7px;
+
+    border-top: 1px solid currentColor;
+    border-left: 1px solid currentColor;
+}
+
+/* Left arrow */
+#viewer-prev::after {
+    left: 14px;
+    transform: translateY(-50%) rotate(-45deg);
+}
+
+/* Right arrow */
+#viewer-next::after {
+    right: 14px;
+    transform: translateY(-50%) rotate(135deg);
 }
 
 .viewer-controls button:hover {
