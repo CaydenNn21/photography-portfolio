@@ -1,5 +1,9 @@
 const photoSeries = [
     {
+        title: "PORTRAITS",
+        tag: "portraits"
+    },
+    {
         title: "TRAVEL",
         tag: "travel"
     },
@@ -10,7 +14,11 @@ const photoSeries = [
     {
         title: "ARCHITECTURE",
         tag: "architecture"
-    }
+    },
+    {
+        title: "Close-ups",
+        tag: "close-ups"
+    },
 ];
 
 const cloudName = "ij3n4uuf";
