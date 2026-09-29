@@ -1,3 +1,18 @@
+const photoSeries = [
+    {
+        title: "TRAVEL",
+        tag: "travel"
+    },
+    {
+        title: "STREET",
+        tag: "street"
+    },
+    {
+        title: "ARCHITECTURE",
+        tag: "architecture"
+    }
+];
+
 const cloudName = "ij3n4uuf";
 
 const metadataWorker =
@@ -10,7 +25,45 @@ let currentPhotoIndex = 0;
    LOAD GALLERY
 ========================= */
 
+function createPhotoSeries() {
+
+    const container = document.getElementById("photo-series");
+
+    photoSeries.forEach(series => {
+
+        const section = document.createElement("section");
+
+        section.className = "gallery-section";
+        section.dataset.series = series.tag;
+
+        const title = document.createElement("div");
+        title.className = "gallery-title";
+
+        const seriesNumber = String(
+            photoSeries.indexOf(series) + 1
+        ).padStart(2, "0");
+
+        title.innerHTML = `
+            <span>${seriesNumber}</span>
+            <h3>${series.title}</h3>
+        `;
+
+        const gallery = document.createElement("div");
+        gallery.className = "gallery";
+        gallery.id = `gallery-${series.tag}`;
+
+        section.appendChild(title);
+        section.appendChild(gallery);
+
+        container.appendChild(section);
+
+        loadGallery(series.tag, gallery.id);
+    });
+}
+
+
 function loadGallery(tag, galleryId) {
+
     const gallery = document.getElementById(galleryId);
 
     const url =
@@ -42,22 +95,18 @@ function loadGallery(tag, galleryId) {
 
                 photo.appendChild(img);
                 photo.appendChild(photoInfo);
-                gallery.appendChild(photo);
 
-                /* Store photo information */
+                gallery.appendChild(photo);
 
                 const photoIndex = allPhotos.length;
 
-               allPhotos.push({
+                allPhotos.push({
                     src: img.src,
                     tag: tag,
                     publicId: image.public_id,
                     format: image.format,
                     metadata: null
                 });
-
-
-                /* Open fullscreen viewer */
 
                 photo.addEventListener("click", () => {
                     openViewer(photoIndex);
@@ -385,6 +434,4 @@ document
    LOAD PHOTOS
 ========================= */
 
-loadGallery("travel", "travel-gallery");
-loadGallery("street", "street-gallery");
-loadGallery("architecture", "architecture-gallery");
+createPhotoSeries();
