@@ -33,23 +33,23 @@ let currentPhotoIndex = 0;
    LOAD GALLERY
 ========================= */
 
-function createPhotoSeries() {
+
+async function createPhotoSeries() {
 
     const container = document.getElementById("photo-series");
 
-    photoSeries.forEach(series => {
+    for (let i = 0; i < photoSeries.length; i++) {
+
+        const series = photoSeries[i];
 
         const section = document.createElement("section");
-
         section.className = "gallery-section";
         section.dataset.series = series.tag;
 
         const title = document.createElement("div");
         title.className = "gallery-title";
 
-        const seriesNumber = String(
-            photoSeries.indexOf(series) + 1
-        ).padStart(2, "0");
+        const seriesNumber = String(i + 1).padStart(2, "0");
 
         title.innerHTML = `
             <span>${seriesNumber}</span>
@@ -65,9 +65,10 @@ function createPhotoSeries() {
 
         container.appendChild(section);
 
-        loadGallery(series.tag, gallery.id);
-    });
+        await loadGallery(series.tag, gallery.id);
+    }
 }
+
 
 
 function loadGallery(tag, galleryId) {
@@ -77,11 +78,21 @@ function loadGallery(tag, galleryId) {
     const url =
         `https://res.cloudinary.com/${cloudName}/image/list/${tag}.json`;
 
-    fetch(url)
-        .then(response => response.json())
+    return fetch(url)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Failed to load ${tag}`);
+            }
+            return response.json();
+        })
         .then(data => {
 
-            data.resources.forEach(image => {
+            // Sort photos by public ID for a consistent order
+            const images = [...data.resources].sort((a, b) =>
+            new Date(b.created_at) - new Date(a.created_at)
+        );
+
+            images.forEach(image => {
 
                 const photo = document.createElement("div");
                 photo.className = "photo";
@@ -127,6 +138,7 @@ function loadGallery(tag, galleryId) {
             console.error(`Failed to load ${tag} gallery:`, error);
         });
 }
+
 
 
 /* =========================
